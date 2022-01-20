@@ -1,6 +1,6 @@
 syntax = "proto3";
 package houston;
-option java_package = "com.boozilla.houston";
+option java_package = "boozilla.houston";
 
 // 관리자 서비스
 service Admin {

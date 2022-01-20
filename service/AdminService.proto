@@ -1,0 +1,18 @@
+syntax = "proto3";
+package houston;
+option java_package = "com.boozilla.houston";
+
+// 관리자 서비스
+service Admin {
+  rpc uploadAssets(AdminUploadAssetsRequest) returns (AdminUploadAssetsResponse);
+}
+
+// 애셋 업로드 요청
+message AdminUploadAssetsRequest {
+  bytes excelFile = 1;
+}
+
+// 애셋 업로드 요청 응답
+message AdminUploadAssetsResponse {
+  string taskUid = 1;
+}

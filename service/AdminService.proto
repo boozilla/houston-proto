@@ -14,5 +14,5 @@ message AdminUploadAssetsRequest {
 
 // 애셋 업로드 요청 응답
 message AdminUploadAssetsResponse {
-  string taskUid = 1;
+  int64 taskId = 1;
 }

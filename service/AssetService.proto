@@ -5,7 +5,7 @@ option java_package = "boozilla.houston";
 import "asset/AssetRequest.proto";
 import "asset/AssetData.proto";
 
-// 서버 서비스
-service Server {
+// 애셋 서비스
+service Asset {
   rpc getAsset(AssetRequest) returns (AssetData);
 }

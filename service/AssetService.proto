@@ -7,5 +7,16 @@ import "asset/AssetData.proto";
 
 // 애셋 서비스
 service Asset {
-  rpc getAsset(AssetRequest) returns (AssetData);
+  rpc data(AssetRequest) returns (AssetData);
+  rpc version(AssetVersionRequest) returns (AssetVersionResponse);
+}
+
+// 버전 요청
+message AssetVersionRequest {
+  string name = 1;
+}
+
+// 버전 응답
+message AssetVersionResponse {
+  int64 version = 1;
 }

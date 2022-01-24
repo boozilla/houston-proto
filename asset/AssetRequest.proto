@@ -2,8 +2,6 @@ syntax = "proto3";
 package houston;
 option java_package = "boozilla.houston";
 
-import "google/protobuf/any.proto";
-
 import "asset/AssetFilter.proto";
 
 // 애셋 요청

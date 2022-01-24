@@ -1,0 +1,11 @@
+syntax = "proto3";
+package houston;
+option java_package = "boozilla.houston";
+
+import "asset/AssetRequest.proto";
+import "asset/AssetData.proto";
+
+// 서버 서비스
+service Server {
+  rpc getAsset(AssetRequest) returns (AssetData);
+}

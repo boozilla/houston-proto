@@ -1,0 +1,11 @@
+syntax = "proto3";
+package houston;
+option java_package = "boozilla.houston";
+
+import "google/protobuf/any.proto";
+
+// 애셋 데이터
+message AssetData {
+  int64 version = 1;
+  bytes data = 2;
+}

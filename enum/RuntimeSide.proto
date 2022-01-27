@@ -1,0 +1,9 @@
+syntax = "proto3";
+package houston;
+option java_package = "boozilla.houston";
+
+// Runtime side
+enum RuntimeSide {
+  SERVER = 0;
+  CLIENT = 1;
+}

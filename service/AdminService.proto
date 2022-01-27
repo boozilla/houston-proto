@@ -2,6 +2,7 @@ syntax = "proto3";
 package houston;
 option java_package = "boozilla.houston";
 
+import "enum/RuntimeSide.proto";
 import "asset/AssetUploadTask.proto";
 
 // 관리자 서비스
@@ -17,6 +18,9 @@ service Admin {
 
   // 애셋 액셀 파일
   rpc excel(AdminExcelRequest) returns (AdminExcelResponse);
+
+  // Protobuf 조회
+  rpc protobuf(AdminProtobufRequest) returns (AdminProtobufResponse);
 }
 
 // 애셋 업로드 요청
@@ -54,4 +58,19 @@ message AdminExcelRequest {
 // 애셋 액셀 파일 응답
 message AdminExcelResponse {
   bytes excel = 1;
+}
+
+// Protobuf 조회 요청
+message AdminProtobufRequest {
+  RuntimeSide side = 1;
+}
+
+// Protobuf 조회 응답
+message AdminProtobufResponse {
+  message Protobuf {
+    string name = 1;
+    string schema = 2;
+  }
+
+  repeated Protobuf list = 1;
 }

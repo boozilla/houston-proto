@@ -2,13 +2,21 @@ syntax = "proto3";
 package houston;
 option java_package = "boozilla.houston";
 
+import "google/protobuf/empty.proto";
+
 import "asset/AssetRequest.proto";
 import "asset/AssetData.proto";
 
 // 애셋 서비스
 service Asset {
+  // 데이터 조회
   rpc data(AssetRequest) returns (AssetData);
+
+  // 버전 조회
   rpc version(AssetVersionRequest) returns (AssetVersionResponse);
+
+  // 리스트 조회
+  rpc list(google.protobuf.Empty) returns (AssetListResponse);
 }
 
 // 버전 요청
@@ -19,4 +27,14 @@ message AssetVersionRequest {
 // 버전 응답
 message AssetVersionResponse {
   int64 version = 1;
+}
+
+// 리스트 응답
+message AssetListResponse {
+  message Meta {
+    string name = 1;
+    int64 version = 2;
+  }
+
+  repeated Meta list = 1;
 }

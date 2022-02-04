@@ -3,61 +3,11 @@ package houston;
 option java_package = "boozilla.houston";
 
 import "enum/RuntimeSide.proto";
-import "asset/AssetUploadTask.proto";
 
 // 관리자 서비스
 service Admin {
-  // 애셋 업로드
-  rpc uploadAssets(AdminUploadAssetsRequest) returns (AdminUploadAssetsResponse);
-
-  // 애셋 업로드 태스크 리스트
-  rpc uploadTaskList(AdminUploadTaskListRequest) returns (AdminUploadTaskListResponse);
-
-  // 애셋 업로드 태스크 상태 조회
-  rpc watchTask(AdminWatchTaskRequest) returns (stream AssetUploadTask);
-
-  // 애셋 액셀 파일
-  rpc excel(AdminExcelRequest) returns (AdminExcelResponse);
-
   // Protobuf 조회
   rpc protobuf(AdminProtobufRequest) returns (AdminProtobufResponse);
-}
-
-// 애셋 업로드 요청
-message AdminUploadAssetsRequest {
-  bytes excelFile = 1;
-}
-
-// 애셋 업로드 응답
-message AdminUploadAssetsResponse {
-  int64 taskId = 1;
-}
-
-// 애셋 업로드 태스트 리스트 요청
-message AdminUploadTaskListRequest {
-  int32 position = 1;
-  int32 display = 2;
-}
-
-// 애셋 업로드 태스트 리스트 응답
-message AdminUploadTaskListResponse {
-  repeated AssetUploadTask list = 1;
-}
-
-// 애셋 업로드 태스크 상태 조회 요청
-message AdminWatchTaskRequest {
-  int64 taskId = 1;
-}
-
-// 애셋 액셀 파일 요청
-message AdminExcelRequest {
-  string name = 1;
-  int64 version = 2;
-}
-
-// 애셋 액셀 파일 응답
-message AdminExcelResponse {
-  bytes excel = 1;
 }
 
 // Protobuf 조회 요청

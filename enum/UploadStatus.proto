@@ -4,8 +4,7 @@ option java_package = "boozilla.houston";
 
 // 업로드 상태
 enum UploadStatus {
-  PENDING = 0;
-  PROGRESS = 1;
-  COMPLETE = 2;
-  ERROR = 3;
+  PROGRESS = 0;
+  COMPLETE = 1;
+  ERROR = 2;
 }

@@ -4,19 +4,28 @@ option java_package = "boozilla.houston";
 
 import "google/protobuf/empty.proto";
 
-import "asset/AssetRequest.proto";
-import "asset/AssetData.proto";
-
 // 애셋 서비스
 service Asset {
   // 데이터 조회
-  rpc data(AssetRequest) returns (AssetData);
+  rpc data(AssetDataRequest) returns (AssetDataResponse);
 
   // 버전 조회
   rpc version(AssetVersionRequest) returns (AssetVersionResponse);
 
   // 리스트 조회
   rpc list(google.protobuf.Empty) returns (AssetListResponse);
+}
+
+// 애셋 요청
+message AssetDataRequest {
+  string name = 1;
+  string filter = 2;
+}
+
+// 애셋 데이터
+message AssetDataResponse {
+  int64 version = 1;
+  bytes data = 2;
 }
 
 // 버전 요청

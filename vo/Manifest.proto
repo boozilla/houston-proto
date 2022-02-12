@@ -1,0 +1,16 @@
+syntax = "proto3";
+package houston;
+option java_package = "boozilla.houston";
+
+// Manifest
+message Manifest {
+  message Maintenance {
+    string startAt = 1;
+    string endAt = 2;
+    string message = 3;
+  }
+
+  Maintenance maintenance = 2;
+  map<string, string> server = 3;
+  repeated string cdnBaseUrl = 4;
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+package houston;
+option java_package = "boozilla.houston";
+
+import "vo/Manifest.proto";
+
+// 어플리케이션 서비스
+service Application {
+  // 매니페스트 조회
+  rpc manifest(ManifestGetRequest) returns (Manifest);
+}
+
+// 매니페스트 조회 요청
+message ManifestGetRequest {
+  string version = 1;
+}

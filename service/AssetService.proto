@@ -27,7 +27,8 @@ message AssetDataRequest {
 // 애셋 데이터
 message AssetDataResponse {
   int64 version = 1;
-  bytes data = 2;
+  int64 total = 2;
+  bytes data = 3;
 }
 
 // 버전 요청

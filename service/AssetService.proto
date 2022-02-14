@@ -20,6 +20,8 @@ service Asset {
 message AssetDataRequest {
   string name = 1;
   string filter = 2;
+  int64 start = 3;
+  int64 limit = 4;
 }
 
 // 애셋 데이터

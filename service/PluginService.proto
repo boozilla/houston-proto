@@ -4,19 +4,19 @@ option java_package = "boozilla.houston";
 
 import "enum/RuntimeSide.proto";
 
-// 관리자 서비스
-service Admin {
+// 플러그인 서비스
+service Plugin {
   // Protobuf 조회
-  rpc protobuf(AdminProtobufRequest) returns (AdminProtobufResponse);
+  rpc protobuf(PluginProtobufRequest) returns (PluginProtobufResponse);
 }
 
 // Protobuf 조회 요청
-message AdminProtobufRequest {
+message PluginProtobufRequest {
   RuntimeSide side = 1;
 }
 
 // Protobuf 조회 응답
-message AdminProtobufResponse {
+message PluginProtobufResponse {
   message Protobuf {
     string name = 1;
     string schema = 2;

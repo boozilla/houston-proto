@@ -12,8 +12,8 @@ service Asset {
   // 데이터 Stream 조회
   rpc stream(AssetDataRequest) returns (stream AssetDataStreamResponse);
 
-  // 버전 조회
-  rpc version(AssetVersionRequest) returns (AssetVersionResponse);
+  // 정보 조회
+  rpc info(AssetInfoRequest) returns (AssetInfoResponse);
 
   // 리스트 조회
   rpc list(google.protobuf.Empty) returns (AssetListResponse);
@@ -47,14 +47,15 @@ message AssetDataStreamResponse {
   }
 }
 
-// 버전 요청
-message AssetVersionRequest {
+// 정보 요청
+message AssetInfoRequest {
   string name = 1;
 }
 
-// 버전 응답
-message AssetVersionResponse {
+// 정보 응답
+message AssetInfoResponse {
   int64 version = 1;
+  int64 total = 2;
 }
 
 // 리스트 응답

@@ -1,6 +1,8 @@
 syntax = "proto3";
 package houston;
+
 option java_package = "boozilla.houston";
+option java_multiple_files = true;
 
 // Runtime side
 enum RuntimeSide {

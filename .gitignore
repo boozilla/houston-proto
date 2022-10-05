@@ -1,0 +1,8 @@
+*.meta
+
+#Visual Studio
+/.vs/
+/bin/
+/obj/
+*.csproj
+*.sln

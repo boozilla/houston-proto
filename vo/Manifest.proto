@@ -15,4 +15,5 @@ message Manifest {
   Maintenance maintenance = 2;
   map<string, string> server = 3;
   repeated string cdnBaseUrl = 4;
+  string redirectUrl = 5;
 }

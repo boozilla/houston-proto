@@ -16,4 +16,5 @@ message Manifest {
   map<string, string> server = 3;
   repeated string cdnBaseUrl = 4;
   string redirectUrl = 5;
+  bool unsupported = 6;
 }

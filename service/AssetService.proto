@@ -6,6 +6,8 @@ option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
+import "enum/OrderBy.proto";
+
 // 애셋 서비스
 service Asset {
   // 데이터 조회
@@ -29,6 +31,7 @@ message AssetDataRequest {
   string filter = 4;
   int64 start = 5;
   int64 limit = 6;
+  OrderBy orderBy = 7;
 }
 
 // 애셋 데이터

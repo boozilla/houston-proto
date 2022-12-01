@@ -1,0 +1,11 @@
+syntax = "proto3";
+package houston;
+
+option java_package = "boozilla.houston";
+option java_multiple_files = true;
+
+// Order by
+enum OrderBy {
+  ASC = 0;
+  DESC = 1;
+}

@@ -1,8 +1,23 @@
 syntax = "proto3";
-package houston;
+package houston.service;
 
-option java_package = "boozilla.houston";
+option java_package = "houston.grpc.service";
 option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+// 매니페스트 서비스
+service ManifestService
+{
+  // 조회
+  rpc retrieve (ManifestRetrieveRequest) returns (Manifest);
+}
+
+// 조회 요청
+message ManifestRetrieveRequest
+{
+  string name = 1;
+}
 
 // Manifest
 message Manifest {

@@ -15,5 +15,6 @@ service PluginService
 
 message AssetSchema
 {
-  string schema = 1;
+  string name = 1;
+  string schema = 2;
 }

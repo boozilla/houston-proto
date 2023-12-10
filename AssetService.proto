@@ -24,7 +24,8 @@ message AssetSheet
   string commitId = 2;
   string name = 3;
   bytes structure = 4;
-  repeated string partition = 5;
+  bytes nullableFields = 5;
+  repeated string partition = 6;
 }
 
 // 쿼리 요청

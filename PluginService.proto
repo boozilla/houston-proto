@@ -11,10 +11,26 @@ service PluginService
 {
   // 스키마
   rpc schema (google.protobuf.Empty) returns (stream AssetSchema);
+
+  // 무결성 검사 실행
+  rpc runVerifier (RunVerifierRequest) returns (stream RunVerifierResponse);
 }
 
 message AssetSchema
 {
   string name = 1;
   string schema = 2;
+}
+
+// 무결성 검사 실행 요청
+message RunVerifierRequest
+{
+  string className = 1;
+  bytes verifierByteCode = 2;
+}
+
+// 무결설 검사 실행 응답
+message RunVerifierResponse
+{
+  string stacktrace = 1;
 }

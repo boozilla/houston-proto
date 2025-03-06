@@ -31,8 +31,7 @@ message AssetSheet
   string commitId = 2;
   string name = 3;
   bytes structure = 4;
-  bytes nullableFields = 5;
-  repeated string partition = 6;
+  repeated string partition = 5;
 }
 
 // 애셋 시트

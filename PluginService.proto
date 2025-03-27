@@ -25,7 +25,7 @@ message AssetSchema
 // 무결성 검사 실행 응답
 message RunVerifierResponse
 {
-  string stacktrace = 1;
+  string output = 1;
 }
 
 // 무결성 검사 업로드

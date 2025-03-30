@@ -12,16 +12,22 @@ import "google/protobuf/descriptor.proto";
 service AssetService
 {
   // 리스트
-  rpc list (google.protobuf.Empty) returns (stream AssetSheet);
+  rpc list (AssetListRequest) returns (stream AssetSheet);
 
   // 리스트
-  rpc fetchList (google.protobuf.Empty) returns (AssetSheets);
+  rpc fetchList (AssetListRequest) returns (AssetSheets);
 
   // 쿼리
   rpc query (AssetQueryRequest) returns (stream google.protobuf.Any);
 
   // 쿼리
   rpc fetchQuery (AssetQueryRequest) returns (AssetQueryResponse);
+}
+
+// 리스트 요청
+message AssetListRequest
+{
+  repeated string include = 1;
 }
 
 // 애셋 시트
@@ -44,6 +50,7 @@ message AssetSheets
 message AssetQueryRequest
 {
   string query = 1;
+  bool headersOnly = 2;
 }
 
 // 쿼리 응답

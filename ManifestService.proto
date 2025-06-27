@@ -27,6 +27,6 @@ message Manifest {
 
   Maintenance maintenance = 2;
   map<string, string> server = 3;
-  string redirectUrl = 5;
-  bool unsupported = 6;
+  string redirectUrl = 4;
+  bool unsupported = 5;
 }

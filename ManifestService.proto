@@ -29,4 +29,5 @@ message Manifest {
   map<string, string> server = 3;
   string redirectUrl = 4;
   bool unsupported = 5;
+  string tokenNotBefore = 6;
 }

@@ -22,6 +22,12 @@ service AssetService
 
   // 쿼리
   rpc fetchQuery (AssetQueryRequest) returns (AssetQueryResponse);
+
+  // 구조화된 검색
+  rpc search (AssetSearchRequest) returns (stream google.protobuf.Any);
+
+  // 구조화된 검색
+  rpc fetchSearch (AssetSearchRequest) returns (AssetQueryResponse);
 }
 
 // 리스트 요청
@@ -57,4 +63,30 @@ message AssetQueryRequest
 message AssetQueryResponse
 {
   repeated google.protobuf.Any result = 1;
+}
+
+// 구조화된 검색 요청
+message AssetSearchRequest
+{
+  // 정렬 순서
+  enum SortOrder
+  {
+    ASC = 0;
+    DESC = 1;
+  }
+
+  // 정렬 조건
+  message SortCriteria
+  {
+    string column = 1;
+    SortOrder order = 2;
+  }
+
+  string table = 1;                    // 테이블(시트) 이름 (필수)
+  repeated string column = 2;          // 반환할 컬럼 (비어있으면 전체)
+  string filter = 3;                   // 필터 조건식 (예: "code >= 100 AND name = 'test'")
+  repeated SortCriteria sort = 4;      // 정렬 조건 (복수 컬럼 지원)
+  int64 offset = 5;                    // 건너뛸 행 수 (기본값 0)
+  int64 limit = 6;                     // 최대 반환 행 수 (0 = 제한 없음)
+  bool headersOnly = 7;                // true면 메타데이터만 반환, 데이터 없음
 }

@@ -7,6 +7,9 @@ option java_multiple_files = true;
 import "google/protobuf/empty.proto";
 
 // 플러그인 서비스
+// 연동 어플리케이션 서버 권장사항:
+// - 모든 gRPC 요청 메타데이터에 x-manifest-name 헤더를 포함합니다.
+// - 헤더 누락 시 기본 매니페스트 키를 사용해 정책 판정을 수행합니다.
 service PluginService
 {
   // 스키마

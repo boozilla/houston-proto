@@ -5,6 +5,9 @@ option java_package = "houston.grpc.service";
 option java_multiple_files = true;
 
 // 매니페스트 서비스
+// 연동 어플리케이션 서버 권장사항:
+// - 모든 gRPC 요청 메타데이터에 x-manifest-name 헤더를 포함합니다.
+// - 헤더 누락 시 기본 매니페스트 키를 사용합니다.
 service ManifestService
 {
   // 조회
@@ -14,20 +17,37 @@ service ManifestService
 // 조회 요청
 message ManifestRetrieveRequest
 {
+  // 조회할 매니페스트 키.
+  // 일반적으로 연동 앱 서버가 x-manifest-name 헤더 값을 name으로 전달합니다.
+  // 웹훅 동기화 시 JSON 파일명(확장자 제외)으로 저장됩니다.
+  // 예: notice.json -> "notice"
   string name = 1;
 }
 
-// Manifest
+// Manifest 정책 데이터.
+// houston은 이 값을 저장/조회하며, 점검/재시작/지원중단 판정은 연동 앱 서버에서 구현합니다.
 message Manifest {
   message Maintenance {
+    // 점검 시작 시각.
+    // 기본 형식: yyyy-MM-dd HH:mm:ss KST (예: "2023-08-15 14:00:00 KST")
     string startAt = 1;
+    // 점검 종료 시각.
+    // 기본 형식: yyyy-MM-dd HH:mm:ss KST (예: "2023-08-15 15:00:00 KST")
     string endAt = 2;
+    // 사용자에게 표시할 점검 안내 문구
     string message = 3;
   }
 
+  // 점검 공지 정보 (앱 서버 정책용)
   Maintenance maintenance = 2;
+  // 서버/클라이언트가 해석하는 임의 메타데이터 (key-value)
   map<string, string> server = 3;
+  // 접속 제한 시 이동할 URL (앱 서버 정책용, 빈 값이면 미사용)
   string redirectUrl = 4;
+  // 현재 앱/클라이언트 버전 지원 여부 플래그 (앱 서버 정책용)
   bool unsupported = 5;
+  // 이 시각 이전에 발급된 토큰을 거부할지 판단하기 위한 기준 시각 (앱 서버 정책용)
+  // 기본 형식: yyyy-MM-dd HH:mm:ss KST
+  // 추가 허용: yyyy-MM-dd, yyyy-MM-dd HH:mm:ss, ISO-8601
   string tokenNotBefore = 6;
 }

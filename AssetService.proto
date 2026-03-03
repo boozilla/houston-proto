@@ -9,6 +9,9 @@ import "google/protobuf/any.proto";
 import "google/protobuf/descriptor.proto";
 
 // 애셋 서비스
+// 연동 어플리케이션 서버 권장사항:
+// - 모든 gRPC 요청 메타데이터에 x-manifest-name 헤더를 포함합니다.
+// - 헤더 누락 시 기본 매니페스트 키를 사용해 정책 판정을 수행합니다.
 service AssetService
 {
   // 리스트

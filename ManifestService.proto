@@ -40,7 +40,7 @@ message Manifest {
 
   // 점검 공지 정보 (앱 서버 정책용)
   Maintenance maintenance = 2;
-  // 서버/클라이언트가 해석하는 임의 메타데이터 (key-value)
+  // 서버/클라이언트가 해석하는 임의 메타데이터 (key-value, 예: http, grpc, cdn)
   map<string, string> server = 3;
   // 접속 제한 시 이동할 URL (앱 서버 정책용, 빈 값이면 미사용)
   string redirectUrl = 4;
@@ -50,4 +50,7 @@ message Manifest {
   // 기본 형식: yyyy-MM-dd HH:mm:ss KST
   // 추가 허용: yyyy-MM-dd, yyyy-MM-dd HH:mm:ss, ISO-8601
   string tokenNotBefore = 6;
+  // 앱별 선택 확장 메타데이터 (key-value)
+  // 예: patch.*
+  map<string, string> attribute = 7;
 }

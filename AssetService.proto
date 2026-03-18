@@ -23,11 +23,17 @@ service AssetService
   // 쿼리
   rpc query (AssetQueryRequest) returns (stream google.protobuf.Any);
 
+  // 쿼리 배치 스트리밍
+  rpc batchQuery (AssetQueryRequest) returns (stream AssetQueryResponse);
+
   // 쿼리
   rpc fetchQuery (AssetQueryRequest) returns (AssetQueryResponse);
 
   // 구조화된 검색
   rpc search (AssetSearchRequest) returns (stream google.protobuf.Any);
+
+  // 구조화된 검색 배치 스트리밍
+  rpc batchSearch (AssetSearchRequest) returns (stream AssetQueryResponse);
 
   // 구조화된 검색
   rpc fetchSearch (AssetSearchRequest) returns (AssetQueryResponse);

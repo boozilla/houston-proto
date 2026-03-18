@@ -17,6 +17,9 @@ service AssetService
   // 리스트
   rpc list (AssetListRequest) returns (stream AssetSheet);
 
+  // 리스트 배치 스트리밍
+  rpc batchList (AssetListRequest) returns (stream AssetSheets);
+
   // 리스트
   rpc fetchList (AssetListRequest) returns (AssetSheets);
 

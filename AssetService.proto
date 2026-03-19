@@ -8,72 +8,82 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/descriptor.proto";
 
-// 애셋 서비스
+// 자산 시트 메타데이터와 행 데이터를 조회하는 서비스
 // 연동 어플리케이션 서버 권장사항:
 // - 모든 gRPC 요청 메타데이터에 x-manifest-name 헤더를 포함합니다.
 // - 헤더 누락 시 기본 매니페스트 키를 사용해 정책 판정을 수행합니다.
 service AssetService
 {
-  // 리스트
+  // 시트 메타데이터를 AssetSheet 단위로 스트리밍 조회합니다.
   rpc list (AssetListRequest) returns (stream AssetSheet);
 
-  // 리스트 배치 스트리밍
+  // 시트 메타데이터를 AssetSheets 배치 단위로 스트리밍 조회합니다.
   rpc batchList (AssetListRequest) returns (stream AssetSheets);
 
-  // 리스트
+  // 시트 메타데이터를 한 번에 일괄 조회합니다.
   rpc fetchList (AssetListRequest) returns (AssetSheets);
 
-  // 쿼리
+  // SQL 쿼리 결과를 row 단위(google.protobuf.Any)로 스트리밍 조회합니다.
   rpc query (AssetQueryRequest) returns (stream google.protobuf.Any);
 
-  // 쿼리 배치 스트리밍
+  // SQL 쿼리 결과를 AssetQueryResponse 배치 단위로 스트리밍 조회합니다.
   rpc batchQuery (AssetQueryRequest) returns (stream AssetQueryResponse);
 
-  // 쿼리
+  // SQL 쿼리 결과를 한 번에 일괄 조회합니다.
   rpc fetchQuery (AssetQueryRequest) returns (AssetQueryResponse);
 
-  // 구조화된 검색
+  // 구조화된 검색 결과를 row 단위(google.protobuf.Any)로 스트리밍 조회합니다.
   rpc search (AssetSearchRequest) returns (stream google.protobuf.Any);
 
-  // 구조화된 검색 배치 스트리밍
+  // 구조화된 검색 결과를 AssetQueryResponse 배치 단위로 스트리밍 조회합니다.
   rpc batchSearch (AssetSearchRequest) returns (stream AssetQueryResponse);
 
-  // 구조화된 검색
+  // 구조화된 검색 결과를 한 번에 일괄 조회합니다.
   rpc fetchSearch (AssetSearchRequest) returns (AssetQueryResponse);
 }
 
-// 리스트 요청
+// 시트 메타데이터 조회 요청
 message AssetListRequest
 {
+  // 조회할 시트 이름 목록입니다. 비어 있으면 전체 시트를 조회합니다.
   repeated string include = 1;
 }
 
-// 애셋 시트
+// 단일 시트 메타데이터
 message AssetSheet
 {
+  // 현재 스냅샷 기준 데이터 행 수입니다.
   int64 size = 1;
+  // 현재 스냅샷을 식별하는 commit id입니다.
   string commitId = 2;
+  // 시트 이름입니다.
   string name = 3;
+  // 시트 protobuf descriptor 바이트입니다.
   bytes structure = 4;
+  // 시트에 선언된 파티션 이름 목록입니다.
   repeated string partition = 5;
 }
 
-// 애셋 시트
+// AssetSheet 배치 응답
 message AssetSheets
 {
+  // 시트 메타데이터 목록입니다.
   repeated AssetSheet sheet = 1;
 }
 
-// 쿼리 요청
+// SQL 기반 조회 요청
 message AssetQueryRequest
 {
+  // 실행할 SQL SELECT 쿼리 문자열입니다.
   string query = 1;
+  // true면 데이터 row는 생략하고 응답 메타데이터만 계산합니다.
   bool headersOnly = 2;
 }
 
-// 쿼리 응답
+// row 배치 응답
 message AssetQueryResponse
 {
+  // 조회 결과 row 목록입니다. 각 원소는 google.protobuf.Any로 래핑됩니다.
   repeated google.protobuf.Any result = 1;
 }
 
@@ -90,15 +100,24 @@ message AssetSearchRequest
   // 정렬 조건
   message SortCriteria
   {
+    // 정렬 기준 컬럼 이름입니다.
     string column = 1;
+    // 정렬 방향입니다.
     SortOrder order = 2;
   }
 
-  string table = 1;                    // 테이블(시트) 이름 (필수)
-  repeated string column = 2;          // 반환할 컬럼 (비어있으면 전체)
-  string filter = 3;                   // 필터 조건식 (예: "code >= 100 AND name = 'test'")
-  repeated SortCriteria sort = 4;      // 정렬 조건 (복수 컬럼 지원)
-  int64 offset = 5;                    // 건너뛸 행 수 (기본값 0)
-  int64 limit = 6;                     // 최대 반환 행 수 (0 = 제한 없음)
-  bool headersOnly = 7;                // true면 메타데이터만 반환, 데이터 없음
+  // 조회할 테이블(시트) 이름입니다.
+  string table = 1;
+  // 반환할 컬럼 목록입니다. 비어 있으면 전체 컬럼을 반환합니다.
+  repeated string column = 2;
+  // SQL WHERE 절 형식의 필터 조건식입니다.
+  string filter = 3;
+  // 정렬 조건 목록입니다. 복수 컬럼 정렬을 지원합니다.
+  repeated SortCriteria sort = 4;
+  // 건너뛸 행 수입니다. 기본값은 0입니다.
+  int64 offset = 5;
+  // 최대 반환 행 수입니다. 0이면 제한이 없습니다.
+  int64 limit = 6;
+  // true면 데이터 row는 생략하고 응답 메타데이터만 계산합니다.
+  bool headersOnly = 7;
 }
